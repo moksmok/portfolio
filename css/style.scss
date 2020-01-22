@@ -39,8 +39,12 @@ section {
     opacity: 0;
     
 
-    &:hover a {
-        color: rgb(10, 167, 229);
+    &-home h2:hover a {
+        color: #B3EFB2;
+    }
+
+    &-about h2:hover a {
+        color: rgb(37, 50, 55);
     }
 
     &-up {
@@ -93,6 +97,20 @@ section {
     
 }
 
+.project-1 {
+    width: 25vw;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+
+    & h3 {
+        font-size: 3rem;
+    }
+}
+
 
 
 
@@ -102,7 +120,7 @@ section {
     font-family: 'Montserrat' ,sans-serif;
     font-weight: 800;
     text-transform: lowercase;
-    color: rgb(20, 34, 52);
+    color: #131f2f;
     font-size: 8rem;
     -ms-flex-item-align: end;
         align-self: flex-end;
@@ -269,7 +287,7 @@ section {
       
 }
 .section-2 {
-    background-color: #19abcf;   
+    background-color: #3AAFA9;   
     z-index: 300;
 }
 .section-3 {
