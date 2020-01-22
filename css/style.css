@@ -45,14 +45,6 @@ body {
   opacity: 1;
 }
 
-.fader-page {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  background: yellow;
-}
-
 input,
 textarea,
 button,
