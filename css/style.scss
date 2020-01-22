@@ -3,7 +3,8 @@
 
 
 section {
-    height: 100vh;
+    height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 100);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -21,7 +22,8 @@ section {
 
 .title-scroll {
     position: absolute;
-    height: 10vh;
+    height: 10vh; /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 10);
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -157,7 +159,8 @@ section {
 
 
 .name-title {
-    height: 65vh;
+    height: 65vh; /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 65);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -178,8 +181,8 @@ section {
         opacity: 0;
         
 
-        font-size: 4rem;
-        text-align: right;
+        font-size: 3.5rem;
+        text-align: left;
         color: #56E195;
         font-family: 'Montserrat' ,sans-serif;
         font-weight: 800;
@@ -208,11 +211,12 @@ section {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        -ms-flex-pack: distribute;justify-content: space-around;
+        -ms-flex-pack: distribute;
+        justify-content: space-evenly;
 
         & i {
             position: relative;
-            font-size: 4rem;
+            font-size: 3.4rem;
             color: #EC3289;
 
             display: flex;
@@ -265,7 +269,8 @@ section {
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
-        height: 100vh;
+                height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+                height: calc(var(--vh, 1vh) * 100);
         width: 100%;
         background: rgb(23, 22, 22);
         position: fixed;
@@ -294,33 +299,6 @@ section {
     background-color: #090c10;   
 }
 
-.wrapper {
-    background-color: #181b14;
-    min-height: 100vh;
-    width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    overflow-y: auto;
-
-    & a {
-        font-size: 4rem;
-        text-decoration: none;
-        color: yellow;
-    }
-
-    p {
-        font-size: 2.5rem;
-        color: white;
-    }
-}
-
 .bod-about {
     overflow-y: scroll;
 }
@@ -331,7 +309,7 @@ section {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgb(31, 32, 30);
+    background-color: #56E195;
     -webkit-transform: translateX(-100%);    transform: translateX(-100%);
     z-index: 1000;
 
@@ -348,6 +326,21 @@ section {
     color: tomato;
 }
 
+
+.card-1-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1f201e;
+    -webkit-transform: translateX(-100%);    transform: translateX(-100%);
+    z-index: 1000;
+
+    & h2 {
+        opacity: 0;
+    }
+}
 
 
 

@@ -1,10 +1,21 @@
 
+// First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+let vh = window.innerHeight * 0.01;
+// Then we set the value in the --vh custom property to the root of the document
+document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+// We listen to the resize event
+window.addEventListener('resize', () => {
+  // We execute the same script as before
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+
+
 
 //          PRELOADER
 
 window.addEventListener('load', function() {
-    
-  
     setTimeout(() => {
         gsap.to('.preloader', {duration: 0.5, opacity: 0, onComplete: function() {
             gsap.set('.preloader', {visibility: 'hidden'})
@@ -16,7 +27,11 @@ window.addEventListener('load', function() {
 })
 
 
-//          TIMELINE ANIMATIONS
+//                      TIMELINE ANIMATIONS
+
+
+
+//      HOME ENTER & LEAVE
 
 var home_enter = gsap.timeline({paused: true});
 
@@ -42,6 +57,9 @@ home_leave.to('.anim-icon', 1.8, {ease: Elastic.easeOut.config(1, 0.75), opacity
 
 
 
+//      ABOUT ENTER & LEAVE
+
+
 var about_enter = gsap.timeline({paused: true})
 
 about_enter.to('.name-2', {duration: 0.5, x: 0, opacity: 1,}, '-=1.4')
@@ -51,6 +69,9 @@ var about_leave = gsap.timeline({paused: true})
 
 about_leave.to('.name-2', {duration: 0.5, x: 50, opacity: 0,}, '-=1.4')
 about_leave.to('.title-scroll-about', {duration: 0.45, x: 0, opacity: 0,}, '-=0.9')
+
+
+//      PROJECTS ENTER & LEAVE
 
 
 var projects_enter = gsap.timeline({paused: true})
@@ -72,7 +93,7 @@ projects_leave.to('.title-scroll-projects', {duration: 0.45, x: 0, opacity: 0,},
 if (window.history && window.history.pushState) { 
         $(window).on('popstate', function() {
             console.log('BAAAACK')
-            gsap.to('.project-card', {ease: Power2.easeInOut,duration: 0.45, x: '-100%', delay: 0.75})
+            // gsap.to('.project-card', {ease: Power2.easeInOut,duration: 0.45, x: '-100%', delay: 0.75})
         });
 }
 
@@ -85,6 +106,9 @@ if (window.history && window.history.pushState) {
 
 document.querySelector('.project-1').addEventListener('click', function() {
     gsap.to('.card-1', {ease: Power2.easeInOut,duration: 0.45,x: 0})
+    gsap.to('.card-1-layer', {ease: Power2.easeInOut,duration: 0.35,x: 0,delay: 0.2,onComplete: function() {
+        gsap.to('.project-name', {opacity: 1, duration: 0.2, delay: 0.15})
+    }})
 })
 
 document.getElementById('btn-project-1').addEventListener('click', function() {
@@ -92,7 +116,10 @@ document.getElementById('btn-project-1').addEventListener('click', function() {
 })
 
 document.querySelector('.go-back').addEventListener('click', function() {
-    gsap.to('.project-card', {ease: Power2.easeInOut,duration: 0.45, x: '-100%'})
+    gsap.to('.project-name', {opacity: 0, duration: 0.15})
+    gsap.to('.card-1-layer', {ease: Power2.easeInOut,duration: 0.35,x: '-100%'})
+    gsap.to('.card-1', {ease: Power2.easeInOut,duration: 0.45, x: '-100%', delay: 0.2})
+    
 })
 
 
@@ -107,7 +134,7 @@ function afterPreload() {
         verticalCentered: true,
         sectionsColor: [],
         anchors: ['home', 'about', 'projects'],
-        scrollingSpeed: 1000,
+        scrollingSpeed: 800,
         easing: 'swing',
         loopBottom: true,
         loopTop: true,
@@ -118,7 +145,7 @@ function afterPreload() {
             'bulletsColor': '#15e7c0',
             'position': 'right',
         },
-           normalScrollElements: null,
+           normalScrollElements: '.project-1',
         normalScrollElementTouchThreshold: 3,
         touchSensitivity: 5,
         keyboardScrolling: true,
@@ -130,37 +157,16 @@ function afterPreload() {
             if(index == 1){
                 console.log('lecimy')
                 home_leave.restart()
-                // gsap.to('.main-title', {duration: 0.3, y: -50, opacity: 0})
-                // gsap.to('.section-name', {duration: 0.4, x: 100, opacity: 0})
-                // gsap.to('.icon-1', {duration: 0.3, y: -50, opacity: 0, delay: 0.1})
-                // gsap.to('.icon-2', {duration: 0.3, y: -50, opacity: 0, delay: 0.12})
-                // gsap.to('.icon-3', {duration: 0.3, y: -50, opacity: 0, delay: 0.14})
-                // gsap.to('.title-scroll', {duration: 0.3, opacity: 0, delay: 0.2})
-                
-
             }
             
             if(index == 2){
                 console.log('leaving about')
                 about_leave.restart()
-                // gsap.to('.name-2', {duration: 0.5, x: 100, opacity: 0})
-                // gsap.set('.main-title', {y: -50, opacity: 0})
-                // gsap.set('.name-1', { x: -50, opacity: 0})
-                // gsap.set('.name-3', { x: -50, opacity: 0})
-                // gsap.set('.anim-icon', {  opacity: 0})
-                // gsap.set('.title-scroll', { opacity: 0})
-
-                // gsap.set('.icon-1', {y: -50, opacity: 0})
-                // gsap.set('.icon-2', {y: -50, opacity: 0})
-                // gsap.set('.icon-3', {y: -50, opacity: 0})
             }
 
             if(index == 3){
                 console.log('proj')
                 projects_leave.restart()
-                // gsap.to('.name-3', {duration: 0.5, x: 100, opacity: 0})
-                // gsap.set('.main-title', {y: -50, opacity: 0})
-                // gsap.set('.name-1', { x: -50, opacity: 0})
             }
 
         
@@ -169,14 +175,6 @@ function afterPreload() {
             if(anchorLink == 'home'){
                 console.log('hooome')
                 home_enter.restart()
-                // gsap.to('.main-title', {duration: 0.3, y: 0, opacity: 1},  )
-              
-                // gsap.to('.icon-1', {duration: 0.4, y: 0, opacity: 1, delay: 0.4})
-                // gsap.to('.icon-2', {duration: 0.4, y: 0, opacity: 1, delay: 0.5})
-                // gsap.to('.icon-3', {duration: 0.4, y: 0, opacity: 1, delay: 0.6})
-                // gsap.to('.section-name', {duration: 0.5, x: 0, opacity: 1, delay: 0.9})
-                
-                
             }
             
             if(anchorLink == 'about'){
