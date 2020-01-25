@@ -17,18 +17,56 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('load', function() {
     setTimeout(() => {
+        
+        gsap.to('.cls-1', 0.2, {fillOpacity: 1, ease: Power1.easeInOut})
         gsap.to('.preloader', {duration: 0.5, opacity: 0, onComplete: function() {
             gsap.set('.preloader', {visibility: 'hidden'})
-            home_enter.play()
+            home_enter.play();
+            activateObjects();
             afterPreload();
         }})
-    }, 600)
+    }, 1000)
 
 })
 
 
-//                      TIMELINE ANIMATIONS
+//                  MOVING OBJECTS LOGOS
 
+function activateObjects() {
+    let objectLoop = document.getElementsByClassName("object");
+
+    for (let i = 0; i < objectLoop.length; i++) {
+      animateDiv(objectLoop[i]);
+    };
+  
+  function makeNewPosition(){
+      
+      // Get viewport dimensions (remove the dimension of the div)
+      var h = $('.info-side').height() - 20;
+      var w = $('.info-side').width() - 10;
+      
+      var nh = Math.floor(Math.random() * h);
+      var nw = Math.floor(Math.random() * w);
+      
+      return [nh,nw];    
+      
+  }
+  
+  function animateDiv(myclass){
+      var newq = makeNewPosition();
+      $(myclass).animate({ top: newq[0], left: newq[1] }, 20000,   function(){
+        animateDiv(myclass);        
+      },);  
+  };
+}
+
+
+ //                      TIMELINE ANIMATIONS
+
+
+
+// tl.staggerFromTo('.object', 0.15, {           
+//     opacity: 0}, {opacity: 1, ease: Power2.easeInOut}, 0.1, '-=0.3');
 
 
 //      HOME ENTER & LEAVE
@@ -37,23 +75,33 @@ var home_enter = gsap.timeline({paused: true});
 
 
 home_enter.to('.main-title', {
-    duration: 1.2,y: 0, opacity:1, ease: Elastic.easeOut.config(1, 0.75), 
+    duration: 1.2,x: 0, opacity:1, ease: Elastic.easeOut.config(1, 0.75), 
 })
-home_enter.staggerFrom('.anim-icon', 1.8, {
-    y: -40,
-    ease: Elastic.easeOut.config(1, 0.75),
-    opacity: 0
-  }, 0.1, '-=0.9');
-home_enter.to('.name-1', {duration: 0.5, x: 0, opacity: 1,}, '-=1.4')
-home_enter.to('.title-scroll-home', {duration: 0.45, x: 0, opacity: 1,}, '-=0.9')
+home_enter.to('.main-info', {
+    duration: 1.2,y: 0, opacity:1, ease: Elastic.easeOut.config(1, 0.75), 
+}, '-=0.9')
+home_enter.staggerFromTo('.object', 0.15, {         
+    opacity: 0}, {opacity: 1, ease: Power2.easeInOut}, 0.1, '-=0.8');
+// home_enter.staggerFrom('.anim-icon', 1.8, {
+//     y: -40,
+//     ease: Elastic.easeOut.config(1, 0.75),
+//     opacity: 0
+//   }, 0.1, '-=0.9');
+home_enter.to('.name-1', {duration: 0.5, x: 0, opacity: 1,}, '-=1')
+home_enter.to('.title-scroll-home', {duration: 0.45, x: 0, opacity: 1,}, '-=0.5')
 
 
 var home_leave = gsap.timeline({paused: true});
 
-home_leave.to('.main-title', {duration: 0.2, y: -50, opacity: 0})
-home_leave.to('.title-scroll-home', {duration: 0.2, opacity: 0,}, '-=1.5')
-home_leave.to('.name-1', {duration: 0.4, x: 100, opacity: 0})
-home_leave.to('.anim-icon', 1.8, {ease: Elastic.easeOut.config(1, 0.75), opacity: 0}, 0.1, '-=0.9');
+home_leave.to('.main-title', {duration: 0.2, x: 50, opacity: 0})
+home_leave.to('.main-info', {
+    duration: 0.2,y: 50, opacity:0, 
+}, '-=0.1')
+home_leave.staggerFromTo('.object', 0.15, {         
+    opacity: 0}, {opacity: 0, ease: Power2.easeInOut}, 0.1, '-=0.25');
+home_leave.to('.title-scroll-home', {duration: 0.2, opacity: 0,}, '-=0.3')
+home_leave.to('.name-1', {duration: 0.3, x: 100, opacity: 0}, '-=0.35')
+// home_leave.to('.anim-icon', 1.8, {ease: Elastic.easeOut.config(1, 0.75), opacity: 0}, 0.1, '-=0.9');
 
 
 
@@ -107,7 +155,7 @@ if (window.history && window.history.pushState) {
 document.querySelector('.project-1').addEventListener('click', function() {
     gsap.to('.card-1', {ease: Power2.easeInOut,duration: 0.45,x: 0})
     gsap.to('.card-1-layer', {ease: Power2.easeInOut,duration: 0.35,x: 0,delay: 0.2,onComplete: function() {
-        gsap.to('.project-name', {opacity: 1, duration: 0.2, delay: 0.15})
+    gsap.to('.project-name', {opacity: 1, duration: 0.2, delay: 0.15})
     }})
 })
 
@@ -138,16 +186,16 @@ function afterPreload() {
         easing: 'swing',
         loopBottom: true,
         loopTop: true,
-        css3: false,
+        css3: true,
         navigation: false,
-        navigation: {
-            'textColor': '#000',
-            'bulletsColor': '#15e7c0',
-            'position': 'right',
-        },
-           normalScrollElements: '.project-1',
+        // navigation: {
+        //     'textColor': '#000',
+        //     'bulletsColor': '#15e7c0',
+        //     'position': 'right',
+        // },
+        normalScrollElements: '.project-1',
         normalScrollElementTouchThreshold: 3,
-        touchSensitivity: 5,
+        touchSensitivity: 10,
         keyboardScrolling: true,
         sectionSelector: '.section',
         animateAnchor: false,

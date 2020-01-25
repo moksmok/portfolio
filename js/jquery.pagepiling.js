@@ -21,7 +21,7 @@
         //Defines the delay to take place before being able to scroll to the next section
         //BE CAREFUL! Not recommened to change it under 400 for a good behavior in laptops and
         //Apple devices (laptops, mouses...)
-        var scrollDelay = 450;
+        var scrollDelay = 1200;
 
         // Create some defaults, extending them with any options that were provided
         var options = $.extend(true, {
@@ -156,7 +156,13 @@
             options.css3 = support3d();
         }
 
+        // $(container).css({
+        //     'overflow' : 'hidden',
+        //     '-ms-touch-action': 'none',  /* Touch detection for Windows 8 */
+        //     'touch-action': 'none'       /* IE 11 on Windows Phone 8.1*/
+        // });
         $(container).css({
+            'height': '100vh',
             'overflow' : 'hidden',
             '-ms-touch-action': 'none',  /* Touch detection for Windows 8 */
             'touch-action': 'none'       /* IE 11 on Windows Phone 8.1*/
